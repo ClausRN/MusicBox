@@ -29,13 +29,12 @@ func NewOMXPlayer() (result OMXPlayer) {
 
 func (player *OMXPlayer)Stop() {
 	if player.OMX.HasPlayer() {
-//		fmt.Println("Player active")
 		status, err := player.OMX.PlaybackStatus()
 		if err != nil {
 			fmt.Println("Stop error: ", err)
 		}
 		if status == "playing" {
-//			fmt.Println("Still playing")
+			fmt.Printf("Time %v: Stop playing\n", time.Now())
 			player.OMX.Pause()
 			time.Sleep(time.Duration(250) * time.Millisecond)
 		}
@@ -44,21 +43,19 @@ func (player *OMXPlayer)Stop() {
 
 func (player *OMXPlayer)Start() {
 	if player.OMX.HasPlayer() == false {
-                fmt.Println("Start playing")
+		fmt.Printf("Time %v: Start playing\n", time.Now())
 		player.OMX.StartPlayer(player.Media.NextTrack())
 		time.Sleep(time.Duration(250) * time.Millisecond)
         } else {
-//		fmt.Println("Player startet")
 		status, err := player.OMX.PlaybackStatus()
                 if err != nil {
-                        fmt.Println("PlaybackStatus error: ", err)
+			fmt.Println("PlaybackStatus error: ", err)
                 }
                 if status != "playing" {
-                        fmt.Println("Restart playing")
+			fmt.Printf("Time %v: Restart playing\n", time.Now())
 			player.OMX.Play()
 			time.Sleep(time.Duration(250) * time.Millisecond)		
 		} else {
-//			fmt.Println("Allready playing")
 		}
 	}
 
