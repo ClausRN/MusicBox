@@ -12,15 +12,16 @@ type USProbe struct {
 	EchoPin 	rpio.Pin
 	PingPin 	rpio.Pin
 	TriggeredUntil 	time.Time
+	Timeout		int
         Distance     	float32
 	DistanceLow	float32
 	DistanceHigh	float32
 	DistanceRaw	float32
 }
 
-func NewUSProbe(echo int, // Echo pin
-	       ping int, // Trigger pin
-) (result USProbe) {
+func NewUSProbe(echo    int, // Echo pin
+	        ping    int, // Trigger pin
+		Timeout int) (result USProbe) {
 	if err := rpio.Open(); err != nil {
 		panic(err.Error())
 	}
@@ -30,7 +31,7 @@ func NewUSProbe(echo int, // Echo pin
 	var first  float32
         var second float32
         var third  float32
- 	
+ 	result.Timeout = Timeout
 	first = result.MeasureDistance()
         second = result.MeasureDistance()
         third = result.MeasureDistance()
@@ -81,7 +82,7 @@ func (hcsr *USProbe) Probe(){
         var first  float32
 	first = hcsr.MeasureDistance()
 	if (hcsr.DistanceRaw > hcsr.DistanceHigh) || (hcsr.DistanceRaw < hcsr.DistanceLow){
-		hcsr.TriggeredUntil = time.Now().Add(time.Duration(5) * time.Second)
+		hcsr.TriggeredUntil = time.Now().Add(time.Duration(hcsr.Timeout) * time.Second)
         	var second float32
 	        var third  float32
 

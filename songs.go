@@ -3,6 +3,7 @@ package main
 import (
 	"path/filepath"
 //	"math/rand"
+	"fmt"
 	"log"
 )
 
@@ -30,6 +31,7 @@ func (mylib *MusicLibrary) NextTrack() string {
 	if (mylib.CurrentTrackNo >= mylib.SongNo) {
 		mylib.CurrentTrackNo = 0
 	}
+	fmt.Println("Song selected: ", mylib.Songs[mylib.CurrentTrackNo])
 	return mylib.Songs[mylib.CurrentTrackNo]
 }
 
