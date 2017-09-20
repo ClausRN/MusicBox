@@ -11,9 +11,9 @@ import (
 )
 
 var (
-        LEDPin rpio.Pin = rpio.Pin(26)
-	PirPin int = 21
-	Timeout int = 10
+        LEDPin rpio.Pin = rpio.Pin(17)
+	PirPin int = 18
+	Timeout int = 30
 )
 
 func main() {
