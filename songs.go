@@ -26,7 +26,6 @@ func NewSongList() (result MusicLibrary) {
 }
 
 func (mylib *MusicLibrary) NextTrack() string {
-//	mylib.CurrentTrackNo = rand.Int31n(mylib.SongNo)
         mylib.CurrentTrackNo++
 	if (mylib.CurrentTrackNo >= mylib.SongNo) {
 		mylib.CurrentTrackNo = 0
